@@ -54,7 +54,7 @@ resource sakuracloud_server "server" {
   disks             = ["${local.disk_ids}"]
   cdrom_id          = "${var.server_cdrom_id}"
   icon_id           = "${var.server_icon_id}"
-  packet_filter_ids = "${var.packet_filter_ids}"
+  packet_filter_ids = ["${var.packet_filter_ids}"]
   description       = "${var.server_description}"
   tags              = ["${var.server_tags}"]
   nic               = "${var.nic}"
