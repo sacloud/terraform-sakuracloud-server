@@ -30,7 +30,7 @@ resource sakuracloud_disk "disk" {
   plan              = "${var.disk_plan}"
   source_archive_id = "${data.sakuracloud_archive.os.id}"
   ssh_key_ids       = ["${sakuracloud_ssh_key.ssh_key.id}"]
-  note_ids          = "${var.startup_script_ids}"
+  note_ids          = ["${var.startup_script_ids}"]
   icon_id           = "${var.disk_icon_id}"
   hostname          = "${local.hostname}"
   password          = "${var.password}"
