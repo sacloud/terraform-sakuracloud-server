@@ -127,6 +127,5 @@ locals {
   disk_name     = "${var.disk_name == "" ? var.server_name : var.disk_name}"
   hostname      = "${var.hostname == "" ? var.server_name : var.hostname}"
   nw_mask_len   = "${var.nw_mask_len == 0 ? "" : var.nw_mask_len}"
-  ssh_key_count = "${var.ssh_public_key == "" ? 1 : 0}"
   disk_ids      = "${concat(list(sakuracloud_disk.disk.id), var.server_additional_disks)}"
 }

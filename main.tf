@@ -3,7 +3,6 @@
  *****************************************************************************/
 resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
-  count     = "${local.ssh_key_count}"
 }
 
 locals {
