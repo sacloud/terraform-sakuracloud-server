@@ -48,7 +48,7 @@ module "server" {
 //
 # resource "null_resource" "store_private_key" {
 #   triggers {
-#     ssh_key_id = "${module.server.ssh_key_id}"
+#     ssh_key_id = module.server.ssh_key_id
 #   }
 #
 #   provisioner "local-exec" {
