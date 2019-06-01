@@ -36,16 +36,18 @@ resource "sakuracloud_disk" "disk" {
   lifecycle {
     ignore_changes = [source_archive_id]
   }
+
+  count = var.server_count
 }
 
 // server for master
 resource "sakuracloud_server" "server" {
-  name             = var.server_name
-  core             = var.server_core
-  memory           = var.server_memory
-  interface_driver = var.server_interface_driver
-  additional_nics  = var.additional_nics
-  disks             = local.disk_ids
+  name              = var.server_name
+  core              = var.server_core
+  memory            = var.server_memory
+  interface_driver  = var.server_interface_driver
+  additional_nics   = var.additional_nics
+  disks             = concat([sakuracloud_disk.disk[count.index].id], var.server_additional_disks)
   cdrom_id          = var.server_cdrom_id
   icon_id           = var.server_icon_id
   packet_filter_ids = var.packet_filter_ids
@@ -61,5 +63,7 @@ resource "sakuracloud_server" "server" {
   hostname        = local.hostname
   password        = var.password
   disable_pw_auth = var.disable_pw_auth
+
+  count = var.server_count
 }
 

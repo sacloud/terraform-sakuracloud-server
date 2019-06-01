@@ -1,3 +1,7 @@
+variable "server_count" {
+  default = 1
+}
+
 variable "os_type" {
   default = "centos"
 }
@@ -127,6 +131,5 @@ locals {
   disk_name   = var.disk_name == "" ? var.server_name : var.disk_name
   hostname    = var.hostname == "" ? var.server_name : var.hostname
   nw_mask_len = var.nw_mask_len == 0 ? "" : var.nw_mask_len
-  disk_ids    = concat([sakuracloud_disk.disk.id], var.server_additional_disks)
 }
 
