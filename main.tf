@@ -24,7 +24,7 @@ data "sakuracloud_archive" "os" {
 
 // disk for master
 resource "sakuracloud_disk" "disk" {
-  name              = local.disk_name
+  name              = "${local.disk_name}${var.server_count > 1 ? format("%02d", count.index + 1) : ""}"
   connector         = var.disk_connector
   plan              = var.disk_plan
   source_archive_id = data.sakuracloud_archive.os.id
@@ -42,25 +42,25 @@ resource "sakuracloud_disk" "disk" {
 
 // server for master
 resource "sakuracloud_server" "server" {
-  name              = var.server_name
+  name              = "${var.server_name}${var.server_count > 1 ? format("%02d", count.index + 1) : ""}"
   core              = var.server_core
   memory            = var.server_memory
   interface_driver  = var.server_interface_driver
   additional_nics   = var.additional_nics
-  disks             = concat([sakuracloud_disk.disk[count.index].id], var.server_additional_disks)
+  disks             = [sakuracloud_disk.disk[count.index].id]
   cdrom_id          = var.server_cdrom_id
   icon_id           = var.server_icon_id
-  packet_filter_ids = var.packet_filter_ids
+  packet_filter_ids = length(var.packet_filter_ids) == 0 ? null : var.packet_filter_ids
   description       = var.server_description
   tags              = var.server_tags
   nic               = var.nic
-  ipaddress         = var.ipaddress
+  ipaddress         = length(var.ipaddress) > count.index ? var.ipaddress[count.index] : null
   gateway           = var.gateway
   nw_mask_len       = local.nw_mask_len
 
   ssh_key_ids     = [sakuracloud_ssh_key.ssh_key.id]
   note_ids        = var.startup_script_ids
-  hostname        = local.hostname
+  hostname        = "${local.hostname}${var.server_count > 1 ? format("%02d", count.index + 1) : ""}"
   password        = var.password
   disable_pw_auth = var.disable_pw_auth
 

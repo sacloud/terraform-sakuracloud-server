@@ -29,23 +29,31 @@ output "disk_source_archive_id" {
 #************************************************
 # for Server
 #************************************************
-output "server_id" {
+output "server_ids" {
   value = sakuracloud_server.server.*.id
+}
+
+output "server_names" {
+  value = sakuracloud_server.server.*.name
+}
+
+output "server_hostnames" {
+  value = sakuracloud_server.server.*.hostname
 }
 
 output "server_dns_servers" {
   value = sakuracloud_server.server.*.dns_servers
 }
 
-output "server_ipaddress" {
+output "server_ipaddresses" {
   value = sakuracloud_server.server.*.ipaddress
 }
 
-output "server_gateway" {
+output "server_gateways" {
   value = sakuracloud_server.server.*.gateway
 }
 
-output "server_nw_address" {
+output "server_nw_addresses" {
   value = sakuracloud_server.server.*.nw_address
 }
 

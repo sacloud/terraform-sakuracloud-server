@@ -73,11 +73,6 @@ variable "server_icon_id" {
   default = ""
 }
 
-variable "server_additional_disks" {
-  type    = list(string)
-  default = []
-}
-
 variable "server_core" {
   default     = 1
   description = "Number of master node CPU core"
@@ -116,7 +111,8 @@ variable "nic" {
 }
 
 variable "ipaddress" {
-  default = ""
+  type    = list(string)
+  default = []
 }
 
 variable "gateway" {
